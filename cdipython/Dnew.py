@@ -1,16 +1,15 @@
-#!/usr/bin/env python3 
-
+#!/usr/bin/env python3
 # Initialize variables
 month_steps = {1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []}
 month_days_over_10000 = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0}
 
-# Read data from Steps.txt file
+# Read data from Steps.txt file and skip lines starting with #
 with open("Steps.txt", "r") as file:
     steps_data = file.read().splitlines()
 
 # Calculate the average steps and count days with steps > 10,000 per month
 for day in steps_data:
-    if day.strip():  # Check if the line is not empty
+    if not day.startswith("#"):  # Skip lines starting with #
         day_number, steps = map(int, day.split(","))
         month = (day_number - 1) // 30 + 1  # Calculate the month based on the day number
         if 1 <= month <= 12:  # Check if the month is within the valid range
